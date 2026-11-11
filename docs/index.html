@@ -372,6 +372,8 @@ const fmtS = (v) => v == null ? "n/a" : (v < 1 ? v.toFixed(3) : v < 10 ? v.toFix
 const fmtN = (v) => v == null ? "n/a" : Math.round(v).toLocaleString("en-US");
 const fmtMB = (kb) => kb == null ? "n/a" : (kb / 1024 >= 1024 ? (kb / 1048576).toFixed(1) + " GB" : Math.round(kb / 1024) + " MB");
 const date = (d) => new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+/* "2026-10" -> "October 2026", "2026-10-02" -> "2 October 2026". */
+const openedText = (o) => /^\d{4}-\d{2}$/.test(o) ? new Date(`${o}-01T12:00:00Z`).toLocaleDateString("en-GB", { month: "long", year: "numeric" }) : date(o);
 const cpuShort = (cpu) => cpu.replace(/\(R\)|Processor.*$|@.*$/g, "").replace(/\s+/g, " ").trim();
 const envText = (e) => `${e.cpu.replace(/\(R\)/g, "").replace(/\s+/g, " ")}, ${e.cores} ${e.cores > 1 ? "cores" : "core"}, ${e.memoryGB} GB RAM, ${e.platform}, Node.js ${e.node}`;
 const envShort = (e) => `${cpuShort(e.cpu)}, ${e.cores} ${e.cores > 1 ? "cores" : "core"}, ${e.memoryGB} GB`;
@@ -586,7 +588,7 @@ function home() {
       const h = headline(e), chart = barChart(chartGroups(e), `Lab #${e.id}, median check time`);
       return `<article class="zig${i % 2 ? " zig--rev" : ""}" data-reveal>
         <div class="zig-text">
-          <span class="zig-tags">${tag(`Lab #${esc(e.id)}`)}${badge(e.status)}</span>
+          <span class="zig-tags">${tag(`Lab #${esc(e.id)}`)}${badge(e.status)}${e.opened ? `<span class="meta">Opened ${openedText(e.opened)}</span>` : ""}</span>
           <h3>${md(e.title)}</h3>
           ${h ? `<p class="zig-result"><span class="big">${h.value}</span><span>${esc(h.label)}</span></p>` : ""}
           <p class="zig-verdict">${md(e.takeaway || e.verdict)}</p>
@@ -703,7 +705,7 @@ function experiment(e) {
     ${h ? `<span class="res-meta">Computed from medians on ${esc(envShort(h.s.environment))}, ${date(h.s.date)}. Verified on ${compilers.map(vers).join(" and ")}.</span>` : ""}
   </div>`;
   return `${hero({
-    crumb: `<a href="#">Performance Lab</a><span>/ Experiment #${esc(e.id)}</span>`,
+    crumb: `<a href="#">Performance Lab</a><span>/ Experiment #${esc(e.id)}</span>${e.opened ? `<span>· Opened ${openedText(e.opened)}</span>` : ""}`,
     title: md(e.title),
     sub: md(e.question),
     actions: `<a class="cta cta--soft" href="#results" data-scroll>See the results</a><a class="cta cta--onblue" href="#reproduce" data-scroll>Reproduce it</a>`,
@@ -725,6 +727,7 @@ function experiment(e) {
         <h2 id="setup">Setup</h2>
         <dl class="facts">
           ${target ? `<dt>Target</dt><dd><a class="link" href="${esc(target.repository)}">${esc(target.name)}</a> at commit <span class="ver">${esc((target.commit || "").slice(0, 7))}</span></dd>` : `<dt>Target</dt><dd>Code in <code>experiments/${esc(e.folder)}</code></dd>`}
+          ${e.opened ? `<dt>Opened</dt><dd>${openedText(e.opened)}</dd>` : ""}
           <dt>Command</dt><dd><code>tsc --extendedDiagnostics</code>, ${s.runsPerCondition} runs per condition</dd>
           <dt>Machine</dt><dd>${esc(envText(s.environment))}</dd>
           ${s.safetyCheck ? `<dt>Type safety</dt><dd>${s.safetyCheck === "passed" ? `<span class="ok-line">${svg(ICON.confirmed)}Safety check passed: invalid usages still fail to compile.</span>` : esc(s.safetyCheck)}</dd>` : ""}

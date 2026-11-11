@@ -1,11 +1,12 @@
 {
-  "generatedAt": "2026-11-11T08:53:52.935Z",
+  "generatedAt": "2026-11-11T09:05:02.772Z",
   "experiments": [
     {
       "folder": "001-typed-events",
       "id": "001",
       "title": "Typed events: the elegant type that slowed down every call site",
       "question": "Does a mapped type with an `as` clause, indexed at every call site, make type-checking measurably slower than inferring the event name from a generic parameter?",
+      "opened": "2026-10",
       "status": "confirmed",
       "verdict": "Yes. Inferring the event name from the generic parameter cut check time by about 40% with TypeScript 6 and by about 65% with TypeScript 7, with the same type safety. Narrowing `include` to `src` also stopped TypeScript from reading a generated file the app never imports.",
       "takeaway": "A mapped type with an `as` clause is evaluated backwards at each indexed call site. If you can infer the key from a generic instead, the checker does far less work.",
