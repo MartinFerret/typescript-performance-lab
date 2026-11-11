@@ -19,7 +19,7 @@ Requirements: Node.js 22 or later, git.
 npm install
 npm run lab:001     # typed events, TypeScript 6 and 7
 npm run lab:002     # type-fest, TypeScript 6 vs 7 (clones the library)
-npm run site        # open the lab notebook on http://localhost:4173
+npm run site        # open the lab notebook on http://localhost:4173/typescript-performance-lab/
 ```
 
 Each run saves a JSON file in `experiments/<lab>/results/`, named after the date, the OS and the number of cores.

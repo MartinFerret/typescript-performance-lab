@@ -15,7 +15,7 @@ npm run lab:001
 ```
 
 ## What we found
-Inferring the event name from the generic parameter cut check time by about 40% with TypeScript 6 and by about 65% with TypeScript 7, with the same type safety. See `results/` for the raw numbers and the machine they were measured on.
+Inferring the event name from the generic parameter cuts check time with both compilers, with the same type safety. The figures, per compiler and per machine, are computed from `results/` by `analyze.mjs` (`node experiments/001-typed-events/analyze.mjs`) and shown in the [lab notebook](https://martinferret.dev/typescript-performance-lab/experiments/001-typed-events/).
 
 ## Takeaway
 A mapped type with an `as` clause is evaluated backwards at each indexed call site. If you can infer the key from a generic instead, the checker does far less work.

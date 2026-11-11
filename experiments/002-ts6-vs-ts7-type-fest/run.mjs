@@ -39,7 +39,7 @@ const plan = [
 ];
 // Extra conditions, only run when listed in CONDITIONS.
 const extra = [
-  ...[1, 2, 4, 8].map((n) => ({ key: `src-ts7-c${n}`, compiler: "ts7", project: "tsconfig.src.json", flags: ["--checkers", String(n)], label: `Sources, TypeScript 7.0.2 with ${n} ${n === 1 ? "checker" : "checkers"}`, scope: "checkers" })),
+  ...[1, 2, 4, 8, 12].map((n) => ({ key: `src-ts7-c${n}`, compiler: "ts7", project: "tsconfig.src.json", flags: ["--checkers", String(n)], label: `Sources, TypeScript 7.0.2 with ${n} ${n === 1 ? "checker" : "checkers"}`, scope: "checkers" })),
   { key: "full-ts7-single", compiler: "ts7", project: "tsconfig.json", flags: ["--singleThreaded"], label: "Full suite with type tests, TypeScript 7.0.2 single-threaded", scope: "full" },
   { key: "full-ts6-heap16g", compiler: "ts6", project: "tsconfig.json", env: { NODE_OPTIONS: "--max-old-space-size=16384" }, label: "Full suite with type tests, TypeScript 6.0.3, 16 GB heap", scope: "full" },
 ];

@@ -6,10 +6,15 @@
   "scripts": {
     "lab:001": "node experiments/001-typed-events/run.mjs",
     "lab:002": "node experiments/002-ts6-vs-ts7-type-fest/run.mjs",
+    "lab:002:quiet": "node experiments/002-ts6-vs-ts7-type-fest/quiet.mjs",
     "build": "node tools/build-index.mjs",
     "site": "node tools/build-index.mjs && node tools/serve.mjs"
   },
   "devDependencies": {
+    "@fontsource/funnel-display": "^5.3.0",
+    "@fontsource/geist": "^5.3.0",
+    "@resvg/resvg-js": "^2.6.2",
+    "satori": "^0.63.2",
     "typescript6": "npm:typescript@6.0.3",
     "typescript7": "npm:typescript@7.0.2"
   }

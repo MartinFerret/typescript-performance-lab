@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en" data-base="/typescript-performance-lab/">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Method: how the TypeScript Performance Lab measures</title>
+<meta name="description" content="How every Lab experiment is measured: pinned versions, warm-up, interleaved runs, medians with spread, peak memory and type-safety checks.">
+<link rel="canonical" href="https://martinferret.github.io/typescript-performance-lab/method/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TypeScript Performance Lab">
+<meta property="og:title" content="Method: how the TypeScript Performance Lab measures">
+<meta property="og:description" content="How every Lab experiment is measured: pinned versions, warm-up, interleaved runs, medians with spread, peak memory and type-safety checks.">
+<meta property="og:url" content="https://martinferret.github.io/typescript-performance-lab/method/">
+<meta property="og:image" content="https://martinferret.github.io/typescript-performance-lab/og/method.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Method">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@FerretMartin1">
+<meta name="twitter:title" content="Method: how the TypeScript Performance Lab measures">
+<meta name="twitter:description" content="How every Lab experiment is measured: pinned versions, warm-up, interleaved runs, medians with spread, peak memory and type-safety checks.">
+<meta name="twitter:image" content="https://martinferret.github.io/typescript-performance-lab/og/method.png">
+<meta name="theme-color" content="#f7f9fb">
+<link rel="sitemap" type="application/xml" href="/typescript-performance-lab/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Geist:wght@100..900&family=JetBrains+Mono:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/typescript-performance-lab/notebook.css">
+<script type="module">import { boot } from "/typescript-performance-lab/app.js"; boot();</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Martin Ferret","item":"https://martinferret.github.io/"},{"@type":"ListItem","position":2,"name":"TypeScript Performance Lab","item":"https://martinferret.github.io/typescript-performance-lab/"},{"@type":"ListItem","position":3,"name":"Method","item":"https://martinferret.github.io/typescript-performance-lab/method/"}]}]}</script>
+</head>
+<body data-page="method">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="/typescript-performance-lab/" aria-label="TypeScript Performance Lab, overview"><span class="brand-mark" aria-hidden="true">TS</span>Performance Lab</a>
+    <nav aria-label="Lab navigation"><ul class="nav" id="nav"><li><a href="/typescript-performance-lab/">Overview</a></li><li><a href="/typescript-performance-lab/experiments/001-typed-events/">Lab #001</a></li><li><a href="/typescript-performance-lab/experiments/002-ts6-vs-ts7-type-fest/">Lab #002</a></li><li><a href="/typescript-performance-lab/method/" aria-current="page">Method</a></li></ul></nav>
+    <a class="gh" href="https://github.com/MartinFerret/typescript-performance-lab"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.3 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>Source</a>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+  <section class="frame hero-panel" aria-labelledby="page-title">
+    <div class="wrap hero hero--solo">
+      <div class="hero-text">
+        <p class="hero-crumb"><a href="/typescript-performance-lab/">Performance Lab</a><span>/ Method</span></p>
+        <h1 class="hero-title" id="page-title">Method</h1>
+        <p class="hero-sub">Every experiment follows the same protocol, so results can be compared and reproduced on any machine.</p>
+        
+      </div>
+      
+    </div>
+  </section>
+  <section class="wrap block" aria-labelledby="m-what" data-reveal>
+    <div class="head-row"><div><h2 id="m-what">What is measured</h2><p>One main result, three supporting measures.</p></div></div>
+    <ul class="g2" role="list"><li style="--i:0"><div class="kcard">
+      <span class="tag tag--blue"><span class="tag-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="7"/><path d="M12 9v4l2.5 2M10 3h4"/></svg></span><span>Main result</span></span>
+      <h3 class="kcard-title">Check time</h3><p class="kcard-text">Time spent by the type-checker, the main result. Reported as the median, with the fastest and slowest runs.</p></div></li><li style="--i:1"><div class="kcard">
+      <span class="tag tag--violet"><span class="tag-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M4 6h10M4 18h7"/></svg></span><span>Supporting</span></span>
+      <h3 class="kcard-title">Total time</h3><p class="kcard-text">Parse, bind and check together.</p></div></li><li style="--i:2"><div class="kcard">
+      <span class="tag tag--coral"><span class="tag-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg></span><span>Supporting</span></span>
+      <h3 class="kcard-title">Memory</h3><p class="kcard-text">Peak resident memory (RSS) of the largest compiler process, from <code>/usr/bin/time</code>. The compiler's own "Memory used" line is a different metric and is always labeled separately.</p></div></li><li style="--i:3"><div class="kcard">
+      <span class="tag tag--mint"><span class="tag-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg></span><span>Supporting</span></span>
+      <h3 class="kcard-title">Files, types, instantiations</h3><p class="kcard-text">The compiler's counters. They must be identical across runs of the same condition, which proves every run checked the same program.</p></div></li></ul>
+  </section>
+  <section class="frame sky-frame" aria-labelledby="m-proto" data-reveal>
+    <div class="wrap">
+      <div class="head-center"><span class="tag tag--violet"><span class="tag-ic" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3h4M9 3v5l-4.5 7.5A1.5 1.5 0 0 0 5.8 18h8.4a1.5 1.5 0 0 0 1.3-2.5L11 8V3"/><path d="M6.5 13h7"/></svg></span><span>Protocol</span></span><h2 id="m-proto">Five rules, every experiment</h2><p>A number is only worth publishing if anyone can get it again.</p></div>
+      <ol class="g3" role="list"><li style="--i:0"><div class="kcard">
+  <span class="tag tag--blue"><span class="tag-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l5 5-3 1-3 5-2-2-4 4M14 4l6 6"/></svg></span><span>Rule 1</span></span>
+  <h3 class="kcard-title">Pin everything</h3><p class="kcard-text">TypeScript versions are pinned in <code>package.json</code>, external projects are cloned at a pinned commit, and the machine context is saved with every result.</p></div></li><li style="--i:1"><div class="kcard">
+  <span class="tag tag--violet"><span class="tag-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="8" rx="2"/><path d="M7 8v3M11 8v4M15 8v3M19 8v4"/></svg></span><span>Rule 2</span></span>
+  <h3 class="kcard-title">Measure the same way</h3><p class="kcard-text">Each condition runs <code>tsc -p &lt;project&gt; --extendedDiagnostics</code> several times. In protocol mode, one warm-up run per condition is discarded, conditions are interleaved (A B C A B C), and the machine idles 2 minutes first.</p></div></li><li style="--i:2"><div class="kcard">
+  <span class="tag tag--coral"><span class="tag-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M11 9l2-1v8"/></svg></span><span>Rule 3</span></span>
+  <h3 class="kcard-title">Change one thing at a time</h3><p class="kcard-text">A fix is minimal and keeps the same type safety.</p></div></li><li style="--i:3"><div class="kcard">
+  <span class="tag tag--mint"><span class="tag-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="m9 12 2 2 4-4.5"/></svg></span><span>Rule 4</span></span>
+  <h3 class="kcard-title">Prove type safety</h3><p class="kcard-text">When a fix changes types, a <code>safety.ts</code> file lists usages that must still fail to compile. The experiment stops if it fails.</p></div></li><li style="--i:4"><div class="kcard">
+  <span class="tag tag--amber"><span class="tag-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg></span><span>Rule 5</span></span>
+  <h3 class="kcard-title">Publish the verdict, whatever it is</h3><p class="kcard-text">A hypothesis can be confirmed, rejected or stay open.</p></div></li></ol>
+    </div>
+  </section>
+  <section class="wrap block" aria-labelledby="m-limits" data-reveal>
+    <div class="kcard">
+      <h2 id="m-limits">Limits</h2>
+      <ul class="plain read">
+        <li>Timings vary between machines: compare conditions measured on the same machine.</li>
+        <li>Above 5% coefficient of variation, the cause is investigated and 5 more runs are added. If it stays above 5%, the limits say so.</li>
+        <li>Gains are ratios of medians, shown with a conservative range: fastest run of one condition over slowest of the other, both ways.</li>
+        <li>TypeScript 6 and 7 may not count types and instantiations the same way: do not compare these counters across compilers.</li>
+        <li>Close other heavy applications while measuring.</li>
+      </ul>
+    </div>
+  </section></main>
+<footer class="footer">
+  <div class="wrap">
+    <p>Run by <a class="link" href="https://martinferret.github.io/">Martin Ferret</a>, TypeScript performance expert. Run an experiment, then open a pull request with your results file to add a new machine.</p>
+    <ul class="footer-nav" aria-label="Footer">
+      <li><a href="https://martinferret.github.io/">martinferret.github.io</a></li>
+      <li><a href="https://martinferret.github.io/hire/">Work with Martin</a></li>
+      <li><a href="https://github.com/MartinFerret/typescript-performance-lab">Source on GitHub</a></li>
+      <li><a href="/typescript-performance-lab/method/">Method</a></li>
+    </ul>
+  </div>
+</footer>
+</body>
+</html>

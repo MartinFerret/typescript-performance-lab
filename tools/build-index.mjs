@@ -9,8 +9,8 @@
 //
 // Text
 // - verdict, takeaway and notes may contain {{tokens}} filled from experiments/<lab>/analyze.mjs (export "tokens").
-// - The build fails if a token is unknown, or if one of these texts contains a hand-written number with a unit
-//   (×, x, s, ms, MB, GB, GiB, %): every number in them must come from the data.
+// - The build fails if a token is unknown, or if verdict, takeaway or notes contain a hand-written measured number
+//   (a number followed by ×, x, s, seconds, ms, KB, MB, GB, GiB, %, percent, times...), in any experiment.
 import { readdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -69,7 +69,9 @@ function mergeSessions(raw) {
   };
 }
 
-const UNIT_NUMBER = /\d(?:[\d,.]*\d)?\s?(?:×|x\b|ms\b|s\b|MB\b|GB\b|GiB\b|%)/;
+// A measured quantity written by hand: a number followed by a unit or a comparison word.
+// Version numbers and lab ids do not match; run, core and checker counts do (they come from the results files).
+const UNIT_NUMBER = /\d(?:[\d,.]*\d)?\s?(?:×|x\b|ms\b|s\b|seconds?\b|KB\b|KiB\b|MB\b|MiB\b|GB\b|GiB\b|%|percent\b|times\b|fold\b|runs?\b|cores?\b|-core\b|checkers?\b)/i;
 const warnings = [];
 function fillTokens(name, field, text, tokens, strict) {
   if (typeof text !== "string") return text;
@@ -97,8 +99,8 @@ for (const name of readdirSync(dir).filter((n) => existsSync(path.join(dir, n, "
     if (mod.tokens) tokens = mod.tokens(analysis);
   }
   const filled = { ...meta };
-  // Experiments with an analyzer must take every number from it; the others only get a warning.
-  const strict = existsSync(analyzer);
+  // Every experiment must take its numbers from the data: a hand-written measured number fails the build.
+  const strict = true;
   for (const field of ["verdict", "takeaway"]) filled[field] = fillTokens(name, field, meta[field], tokens, strict);
   if (Array.isArray(meta.notes)) filled.notes = meta.notes.map((n, i) => fillTokens(name, `notes[${i}]`, n, tokens, strict));
   experiments.push({ folder: name, ...filled, sessions, ...(supersededSessions.length ? { supersededSessions } : {}), ...(analysis ? { analysis } : {}) });
@@ -109,5 +111,10 @@ if (errors.length) {
   console.error(`docs/data.json NOT written:\n- ${errors.join("\n- ")}`);
   process.exit(1);
 }
-writeFileSync(path.join(root, "docs/data.json"), JSON.stringify({ generatedAt: new Date().toISOString(), experiments }, null, 2));
+const data = { generatedAt: new Date().toISOString(), experiments };
+writeFileSync(path.join(root, "docs/data.json"), JSON.stringify(data, null, 2));
 console.log(`docs/data.json written with ${experiments.length} experiments`);
+// Static pages: every question, verdict, number and table in the raw HTML, for crawlers, previews and LLMs.
+const { writePages } = await import("./notebook/pages.mjs");
+const urls = await writePages(data);
+console.log(`static pages written: ${urls.join(", ")}`);

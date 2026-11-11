@@ -4,7 +4,7 @@
   "question": "Does a mapped type with an `as` clause, indexed at every call site, make type-checking measurably slower than inferring the event name from a generic parameter?",
   "opened": "2026-10",
   "status": "confirmed",
-  "verdict": "Yes. Inferring the event name from the generic parameter cut check time by about 40% with TypeScript 6 and by about 65% with TypeScript 7, with the same type safety. Narrowing `include` to `src` also stopped TypeScript from reading a generated file the app never imports.",
+  "verdict": "Yes. On an Apple M3 Pro ({{m3.cores}} cores), inferring the event name from the generic parameter cut check time by {{m3.ts6.cut}} with TypeScript 6 and by {{m3.ts7.cut}} with TypeScript 7 ({{m3.ts7.cut.range}} from the fastest and slowest runs); on a {{xeon.cores}}-core Intel Xeon, by {{xeon.ts6.cut}} and {{xeon.ts7.cut}}. The safety check passed on both machines, so the type safety is the same. Narrowing `include` to `src` also stopped TypeScript from reading a generated file the app never imports.",
   "takeaway": "A mapped type with an `as` clause is evaluated backwards at each indexed call site. If you can infer the key from a generic instead, the checker does far less work.",
   "reproduce": "npm install && npm run lab:001",
   "conditions": [
@@ -12,5 +12,9 @@
     "after-ts6",
     "before-ts7",
     "after-ts7"
+  ],
+  "notes": [
+    "Both machines use the earlier protocol: {{m3.runs}} runs per condition, no warm-up, runs in sequence. On the Apple M3 Pro, the runs of TypeScript 7 after the fix vary more than the others ({{m3.ts7.after.min}} to {{m3.ts7.after.max}}, {{m3.ts7.after.cv}} coefficient of variation), hence the wider range on that figure.",
+    "The two machines differ by CPU as well as core count: compare the before and after conditions within a machine."
   ]
 }

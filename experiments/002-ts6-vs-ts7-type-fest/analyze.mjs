@@ -13,19 +13,8 @@ import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 
-export const quantile = (sorted, q) => {
-  const pos = (sorted.length - 1) * q, lo = Math.floor(pos), hi = Math.ceil(pos);
-  return sorted[lo] + (sorted[hi] - sorted[lo]) * (pos - lo);
-};
-export function describe(values) {
-  const v = values.filter((x) => x != null);
-  if (!v.length) return null;
-  const s = [...v].sort((a, b) => a - b), n = s.length;
-  const mean = v.reduce((a, b) => a + b, 0) / n;
-  const sd = n > 1 ? Math.sqrt(v.reduce((a, b) => a + (b - mean) ** 2, 0) / (n - 1)) : 0;
-  return { n, median: quantile(s, 0.5), min: s[0], max: s[n - 1], q1: quantile(s, 0.25), q3: quantile(s, 0.75), iqr: quantile(s, 0.75) - quantile(s, 0.25), mean, cv: sd / mean };
-}
-const ratio = (a, b) => ({ value: a.median / b.median, low: a.min / b.max, high: a.max / b.min });
+import { describe, ratio } from "../../tools/stats.mjs";
+export { describe, quantile } from "../../tools/stats.mjs";
 
 export function loadSessions() {
   const dir = path.join(here, "results");
@@ -72,7 +61,11 @@ export function analyze() {
     const proto = m.sessions.filter((s) => s.protocol);
     const base = proto.length ? proto : m.sessions;
     const keys = [...new Set(base.flatMap((s) => s.conditions.map((c) => c.key)))];
-    const conditions = Object.fromEntries(keys.map((k) => [k, pooled(base.filter((s) => s.conditions.some((c) => c.key === k)), k)]));
+    // For each condition, pool only the series of the most recent day that measured it, so a later re-measurement
+    // replaces earlier runs of that condition instead of being mixed with them.
+    const day = (s) => s.date.slice(0, 10);
+    const latestFor = (k) => { const withK = base.filter((s) => s.conditions.some((c) => c.key === k)); const d = withK.map(day).sort().pop(); return withK.filter((s) => day(s) === d); };
+    const conditions = Object.fromEntries(keys.map((k) => [k, pooled(latestFor(k), k)]));
     return { machine: m.environment, files: base.map((s) => s.file), protocol: proto.length > 0, conditions, decomposition: decomposition((k) => conditions[k]) };
   });
 }
@@ -116,12 +109,15 @@ export function tokens(analysis = analyze()) {
     if (c["src-ts7"]?.check) t[`${prefix}.ts7`] = S(c["src-ts7"].check.median);
     if (c["src-ts7-single"]?.check) t[`${prefix}.ts7single`] = S(c["src-ts7-single"].check.median);
     if (m) t[`${prefix}.cores`] = String(m.machine.cores);
+    if (m) t[`${prefix}.runs`] = String(Math.min(...Object.values(c).filter((x) => x?.check).map((x) => x.runs)));
   };
   put("m3", m3);
   put("xeon", xeon);
   if (m3) {
     const c = m3.conditions;
-    for (const n of [1, 2, 4, 8]) if (c[`src-ts7-c${n}`]?.check) t[`chk.c${n}`] = S(c[`src-ts7-c${n}`].check.median);
+    for (const n of [1, 2, 4, 8, 12]) if (c[`src-ts7-c${n}`]?.check) t[`chk.c${n}`] = S(c[`src-ts7-c${n}`].check.median);
+    // Gain of --checkers 8 over the default mode on the sources: 1 - median(c8) / median(default).
+    if (c["src-ts7-c8"]?.check && c["src-ts7"]?.check) t["chk.c8.gain"] = `${Math.round((1 - c["src-ts7-c8"].check.median / c["src-ts7"].check.median) * 100)}%`;
     const f6 = c["full-ts6-heap16g"], f7 = c["full-ts7"], f7s = c["full-ts7-single"];
     if (f6?.check && f7?.check) {
       t["full.ts6"] = S(f6.check.median); t["full.ts7"] = S(f7.check.median);
@@ -141,6 +137,10 @@ export function tokens(analysis = analyze()) {
     const sessions = loadSessions().filter((s) => s.protocol && /M3/.test(s.environment.cpu));
     const heap = sessions.find((s) => s.protocol.heapLimitBytes)?.protocol.heapLimitBytes;
     if (heap) t["heap.default"] = `${(heap / 2 ** 30).toFixed(1)} GiB`;
+    const chkSeries = sessions.filter((x) => x.conditions.some((k) => k.key.startsWith("src-ts7-c")));
+    const chkLoads = chkSeries.flatMap((x) => [x.protocol.powerBefore?.loadAverage?.[0], x.protocol.powerAfter?.loadAverage?.[0]]).filter((v) => v != null);
+    if (chkLoads.length) { t["chk.load.min"] = Math.min(...chkLoads).toFixed(1); t["chk.load.max"] = Math.max(...chkLoads).toFixed(1); }
+    t["chk.sameSeries"] = chkSeries.some((x) => x.conditions.some((k) => k.key === "src-ts7")) ? "yes" : "no";
     const loads = sessions.flatMap((s) => [s.protocol.powerBefore?.loadAverage?.[0], s.protocol.powerAfter?.loadAverage?.[0]]).filter((v) => v != null);
     if (loads.length) { t["load.min"] = Math.min(...loads).toFixed(1); t["load.max"] = Math.max(...loads).toFixed(1); }
   }
