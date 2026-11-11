@@ -1,0 +1,276 @@
+{
+  "date": "2026-11-11T09:23:10.030Z",
+  "environment": {
+    "cpu": "Apple M3 Pro",
+    "cores": 12,
+    "memoryGB": 36,
+    "platform": "Darwin 25.2.0",
+    "node": "v22.23.3"
+  },
+  "runsPerCondition": 3,
+  "target": {
+    "name": "type-fest",
+    "repository": "https://github.com/sindresorhus/type-fest",
+    "commit": "2fbae25f05b697c0011d0e2f931d015a77a61ba8"
+  },
+  "protocol": {
+    "warmupPerCondition": 1,
+    "warmupDiscarded": true,
+    "interleaved": true,
+    "cooldownSeconds": 120,
+    "startedAt": "2026-11-11T09:13:18.157Z",
+    "finishedAt": "2026-11-11T09:23:10.013Z",
+    "powerBefore": {
+      "source": "AC",
+      "lowPowerMode": false,
+      "loadAverage": [
+        3.61,
+        3.39,
+        3.41
+      ]
+    },
+    "powerAfter": {
+      "source": "AC",
+      "lowPowerMode": false,
+      "loadAverage": [
+        4.94,
+        4.9,
+        4.13
+      ]
+    },
+    "heapLimitBytes": 4345298944,
+    "series": "full"
+  },
+  "conditions": [
+    {
+      "key": "full-ts7",
+      "label": "Full suite with type tests, TypeScript 7.0.2",
+      "compiler": "TypeScript 7.0.2",
+      "scope": "full",
+      "flags": [],
+      "env": {},
+      "warmupDiscarded": [
+        {
+          "files": 653,
+          "lines": 134282,
+          "types": 15320771,
+          "instantiations": 38893791,
+          "memoryUsedKB": 10567256,
+          "parseTime": 0.042,
+          "bindTime": 0.01,
+          "checkTime": 13.548,
+          "totalTime": 13.638,
+          "maxRssMB": 12582,
+          "started": "2026-11-11T09:15:18.163Z"
+        }
+      ],
+      "status": "ok",
+      "runs": [
+        {
+          "files": 653,
+          "lines": 134282,
+          "types": 15320708,
+          "instantiations": 38893686,
+          "memoryUsedKB": 10566794,
+          "parseTime": 0.038,
+          "bindTime": 0.006,
+          "checkTime": 14.117,
+          "totalTime": 14.184,
+          "maxRssMB": 11972,
+          "started": "2026-11-11T09:17:08.500Z"
+        },
+        {
+          "files": 653,
+          "lines": 134282,
+          "types": 15320762,
+          "instantiations": 38893776,
+          "memoryUsedKB": 10567426,
+          "parseTime": 0.05,
+          "bindTime": 0.006,
+          "checkTime": 15.815,
+          "totalTime": 15.898,
+          "maxRssMB": 11904,
+          "started": "2026-11-11T09:19:07.009Z"
+        },
+        {
+          "files": 653,
+          "lines": 134282,
+          "types": 15320717,
+          "instantiations": 38893701,
+          "memoryUsedKB": 10566608,
+          "parseTime": 0.034,
+          "bindTime": 0.008,
+          "checkTime": 12.981,
+          "totalTime": 13.046,
+          "maxRssMB": 12549,
+          "started": "2026-11-11T09:21:07.602Z"
+        }
+      ],
+      "median": {
+        "files": 653,
+        "lines": 134282,
+        "types": 15320717,
+        "instantiations": 38893701,
+        "memoryUsedKB": 10566794,
+        "parseTime": 0.038,
+        "bindTime": 0.006,
+        "checkTime": 14.117,
+        "totalTime": 14.184,
+        "maxRssMB": 11972
+      }
+    },
+    {
+      "key": "full-ts6-heap16g",
+      "label": "Full suite with type tests, TypeScript 6.0.3, 16 GB heap",
+      "compiler": "TypeScript 6.0.3",
+      "scope": "full",
+      "flags": [],
+      "env": {
+        "NODE_OPTIONS": "--max-old-space-size=16384"
+      },
+      "warmupDiscarded": [
+        {
+          "files": 653,
+          "types": 8872839,
+          "instantiations": 36421290,
+          "memoryUsedKB": 10952944,
+          "parseTime": 0.28,
+          "bindTime": 0.14,
+          "checkTime": 69.43,
+          "totalTime": 69.99,
+          "maxRssMB": 10731,
+          "started": "2026-11-11T09:15:33.925Z"
+        }
+      ],
+      "status": "ok",
+      "runs": [
+        {
+          "files": 653,
+          "types": 8872839,
+          "instantiations": 36421290,
+          "memoryUsedKB": 11003135,
+          "parseTime": 0.31,
+          "bindTime": 0.16,
+          "checkTime": 73.76,
+          "totalTime": 74.36,
+          "maxRssMB": 10318,
+          "started": "2026-11-11T09:17:25.079Z"
+        },
+        {
+          "files": 653,
+          "types": 8872839,
+          "instantiations": 36421290,
+          "memoryUsedKB": 10951568,
+          "parseTime": 0.32,
+          "bindTime": 0.15,
+          "checkTime": 77.77,
+          "totalTime": 78.37,
+          "maxRssMB": 10870,
+          "started": "2026-11-11T09:19:25.085Z"
+        },
+        {
+          "files": 653,
+          "types": 8872839,
+          "instantiations": 36421290,
+          "memoryUsedKB": 10958625,
+          "parseTime": 0.3,
+          "bindTime": 0.14,
+          "checkTime": 82.64,
+          "totalTime": 83.2,
+          "maxRssMB": 10077,
+          "started": "2026-11-11T09:21:22.565Z"
+        }
+      ],
+      "median": {
+        "files": 653,
+        "types": 8872839,
+        "instantiations": 36421290,
+        "memoryUsedKB": 10958625,
+        "parseTime": 0.31,
+        "bindTime": 0.15,
+        "checkTime": 77.77,
+        "totalTime": 78.37,
+        "maxRssMB": 10318
+      }
+    },
+    {
+      "key": "full-ts7-single",
+      "label": "Full suite with type tests, TypeScript 7.0.2 single-threaded",
+      "compiler": "TypeScript 7.0.2",
+      "scope": "full",
+      "flags": [
+        "--singleThreaded"
+      ],
+      "env": {},
+      "warmupDiscarded": [
+        {
+          "files": 653,
+          "lines": 134282,
+          "types": 8535872,
+          "instantiations": 34156989,
+          "memoryUsedKB": 7316224,
+          "parseTime": 0.159,
+          "bindTime": 0.022,
+          "checkTime": 22.177,
+          "totalTime": 22.463,
+          "maxRssMB": 9578,
+          "started": "2026-11-11T09:16:44.485Z"
+        }
+      ],
+      "status": "ok",
+      "runs": [
+        {
+          "files": 653,
+          "lines": 134282,
+          "types": 8535794,
+          "instantiations": 34156859,
+          "memoryUsedKB": 7315266,
+          "parseTime": 0.184,
+          "bindTime": 0.024,
+          "checkTime": 24.893,
+          "totalTime": 25.229,
+          "maxRssMB": 9953,
+          "started": "2026-11-11T09:18:39.988Z"
+        },
+        {
+          "files": 653,
+          "lines": 134282,
+          "types": 8535794,
+          "instantiations": 34156859,
+          "memoryUsedKB": 7315382,
+          "parseTime": 0.142,
+          "bindTime": 0.021,
+          "checkTime": 21.806,
+          "totalTime": 22.204,
+          "maxRssMB": 10135,
+          "started": "2026-11-11T09:20:43.879Z"
+        },
+        {
+          "files": 653,
+          "lines": 134282,
+          "types": 8535794,
+          "instantiations": 34156859,
+          "memoryUsedKB": 7315496,
+          "parseTime": 0.145,
+          "bindTime": 0.021,
+          "checkTime": 22.072,
+          "totalTime": 22.34,
+          "maxRssMB": 9108,
+          "started": "2026-11-11T09:22:46.265Z"
+        }
+      ],
+      "median": {
+        "files": 653,
+        "lines": 134282,
+        "types": 8535794,
+        "instantiations": 34156859,
+        "memoryUsedKB": 7315382,
+        "parseTime": 0.145,
+        "bindTime": 0.021,
+        "checkTime": 22.072,
+        "totalTime": 22.34,
+        "maxRssMB": 9953
+      }
+    }
+  ]
+}

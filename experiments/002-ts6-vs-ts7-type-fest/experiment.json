@@ -1,10 +1,10 @@
 {
   "id": "002",
   "title": "TypeScript 6 vs 7 on type-fest",
-  "question": "How much faster does TypeScript 7 type-check a real, type-heavy library, and how much of the gain comes from parallel checking rather than the native compiler itself?",
+  "question": "How much faster does TypeScript 7 type-check a real, type-heavy library than TypeScript 6, and how much of the gain comes from the native compiler itself rather than parallel checking? What happens to memory on a heavy workload?",
   "status": "open",
-  "verdict": "Open until measured on more machines. In the reference environment (1 core, 4 GB), TypeScript 7 checked the library sources about 3 times faster with lower memory, and the full suite with type tests ran out of memory with both compilers.",
-  "takeaway": "Measure TypeScript 7 on your own project and your own CI runners: the gain depends on cores and memory, not just on the compiler.",
+  "verdict": "On an Apple M3 Pro ({{m3.cores}} cores), TypeScript 7.0.2 checked the type-fest sources {{m3.total}} faster than TypeScript 6.0.3 ({{m3.ts7}} vs {{m3.ts6}}): {{m3.native}} comes from the native compiler alone (single-threaded) and {{m3.parallel}} from parallel checking. On the full suite with type tests, TypeScript 6 stops at Node.js's default heap limit ({{heap.default}}); with a {{heap.large}} heap it finishes in {{full.ts6}}, against {{full.ts7}} for TypeScript 7 ({{full.total}} faster), but TypeScript 7 peaks higher in memory ({{full.rss.ts7}} RSS vs {{full.rss.ts6}}). Stays open until a second machine is measured with the same protocol.",
+  "takeaway": "Most of the gain is the native compiler, so expect it even on CI runners with few cores; more checkers help less ({{chk.c1}} with 1 checker, {{chk.c8}} with 8). On large type-test suites, check peak memory before switching: TypeScript 7 needed no heap flag but used more memory at its peak.",
   "reproduce": "npm install && npm run lab:002",
   "target": {
     "name": "type-fest",
@@ -12,7 +12,19 @@
     "commit": "2fbae25f05b697c0011d0e2f931d015a77a61ba8"
   },
   "notes": [
-    "Types and Instantiations differ between TypeScript 6 and 7 on identical code. The two compilers may not count the same way, so do not compare these counters across compilers without checking how each one counts."
+    "Types and Instantiations differ between TypeScript 6 and 7 on identical code, so never compare these counters across compilers. TypeScript 7's counters also vary slightly from run to run on the full suite, single-threaded included; on the library sources they are identical across runs.",
+    "Memory is peak resident memory (RSS) from `/usr/bin/time -l`, field \"maximum resident set size\", of the largest process: the Node.js process for TypeScript 6, the native compiler for TypeScript 7 (its launcher replaces itself with the native binary). It is not the compiler's own \"Memory used\" line, which for TypeScript 6 is the V8 heap.",
+    "Out of memory means Node.js's default heap limit ({{heap.default}} here), not the machine's RAM: TypeScript 6 aborted with \"Reached heap limit\" at {{full.ts6.oom.rss}} RSS, and completed with `--max-old-space-size=16384`.",
+    "One library (type-fest at one commit), check time only: no emit, watch mode or editor latency.",
+    "The two machines differ by CPU as well as core count, so compare conditions within a machine; the comparison between machines is indicative only. On the 1-core Intel Xeon, parallel checking gives {{xeon.parallel}} ({{xeon.parallel.range}}) and the native compiler {{xeon.native}}.",
+    "The Intel Xeon results use the earlier protocol: 3 runs, no warm-up, not interleaved, no RSS. The Apple M3 Pro results use a discarded warm-up per condition and interleaved runs, with other applications open (load average {{load.min}} to {{load.max}}). The full-suite runs stay noisy: up to {{full.cv.max}} coefficient of variation.",
+    "Checker counts were measured in a separate series from the default and single-threaded runs; compare them with each other."
   ],
-  "conditions": ["src-ts6", "src-ts7", "src-ts7-single", "full-ts6", "full-ts7"]
+  "conditions": [
+    "src-ts6",
+    "src-ts7",
+    "src-ts7-single",
+    "full-ts6",
+    "full-ts7"
+  ]
 }

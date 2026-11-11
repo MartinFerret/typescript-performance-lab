@@ -94,3 +94,55 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     if (d) console.log(`  native x parallel = ${f(d.productCheck, 3)} vs total ${f(d.total.value, 3)}`);
   }
 }
+
+// ---------------------------------------------------------------------------
+// Tokens used in experiment.json texts ({{name}}), filled by tools/build-index.mjs.
+// Rounding: factors one decimal, times three significant digits, memory in GiB with one decimal
+// (/usr/bin/time reports bytes; 1 GiB = 1024 MiB), percentages one decimal.
+const X = (v) => `${v.toFixed(1)}×`;
+const S = (v) => `${Number(v.toPrecision(3))} s`;
+const GiB = (mib) => `${(mib / 1024).toFixed(1)} GiB`;
+const PCT = (v) => `${(v * 100).toFixed(1)}%`;
+const RANGE = (r) => `${r.low.toFixed(1)}× to ${r.high.toFixed(1)}×`;
+
+export function tokens(analysis = analyze()) {
+  const t = {};
+  const m3 = analysis.find((m) => /M3/.test(m.machine.cpu));
+  const xeon = analysis.find((m) => /Xeon/.test(m.machine.cpu));
+  const put = (prefix, m) => {
+    const d = m?.decomposition, c = m?.conditions ?? {};
+    if (d) for (const k of ["total", "native", "parallel"]) { t[`${prefix}.${k}`] = X(d[k].value); t[`${prefix}.${k}.range`] = RANGE(d[k]); }
+    if (c["src-ts6"]?.check) t[`${prefix}.ts6`] = S(c["src-ts6"].check.median);
+    if (c["src-ts7"]?.check) t[`${prefix}.ts7`] = S(c["src-ts7"].check.median);
+    if (c["src-ts7-single"]?.check) t[`${prefix}.ts7single`] = S(c["src-ts7-single"].check.median);
+    if (m) t[`${prefix}.cores`] = String(m.machine.cores);
+  };
+  put("m3", m3);
+  put("xeon", xeon);
+  if (m3) {
+    const c = m3.conditions;
+    for (const n of [1, 2, 4, 8]) if (c[`src-ts7-c${n}`]?.check) t[`chk.c${n}`] = S(c[`src-ts7-c${n}`].check.median);
+    const f6 = c["full-ts6-heap16g"], f7 = c["full-ts7"], f7s = c["full-ts7-single"];
+    if (f6?.check && f7?.check) {
+      t["full.ts6"] = S(f6.check.median); t["full.ts7"] = S(f7.check.median);
+      t["full.total"] = X(f6.check.median / f7.check.median);
+      t["full.rss.ts6"] = GiB(f6.rssMB.median); t["full.rss.ts7"] = GiB(f7.rssMB.median);
+      t["full.cv.max"] = PCT(Math.max(...[f6, f7, f7s].filter(Boolean).map((x) => x.check.cv)));
+    }
+    if (f7s?.check) {
+      t["full.ts7single"] = S(f7s.check.median); t["full.rss.ts7single"] = GiB(f7s.rssMB.median);
+      if (f6?.check) t["full.native"] = X(f6.check.median / f7s.check.median);
+      if (f7?.check) t["full.parallel"] = X(f7s.check.median / f7.check.median);
+    }
+    const big = c["full-ts6-heap16g"]?.env?.NODE_OPTIONS?.match(/--max-old-space-size=(\d+)/)?.[1];
+    if (big) t["heap.large"] = `${Number(big) / 1024} GiB`;
+    const oom = c["full-ts6"]?.failure;
+    if (oom?.maxRssMB) t["full.ts6.oom.rss"] = GiB(oom.maxRssMB);
+    const sessions = loadSessions().filter((s) => s.protocol && /M3/.test(s.environment.cpu));
+    const heap = sessions.find((s) => s.protocol.heapLimitBytes)?.protocol.heapLimitBytes;
+    if (heap) t["heap.default"] = `${(heap / 2 ** 30).toFixed(1)} GiB`;
+    const loads = sessions.flatMap((s) => [s.protocol.powerBefore?.loadAverage?.[0], s.protocol.powerAfter?.loadAverage?.[0]]).filter((v) => v != null);
+    if (loads.length) { t["load.min"] = Math.min(...loads).toFixed(1); t["load.max"] = Math.max(...loads).toFixed(1); }
+  }
+  return t;
+}

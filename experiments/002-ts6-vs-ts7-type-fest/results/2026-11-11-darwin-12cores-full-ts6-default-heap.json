@@ -1,0 +1,78 @@
+{
+  "date": "2026-11-11T09:13:18.112Z",
+  "environment": {
+    "cpu": "Apple M3 Pro",
+    "cores": 12,
+    "memoryGB": 36,
+    "platform": "Darwin 25.2.0",
+    "node": "v22.23.3"
+  },
+  "runsPerCondition": 1,
+  "target": {
+    "name": "type-fest",
+    "repository": "https://github.com/sindresorhus/type-fest",
+    "commit": "2fbae25f05b697c0011d0e2f931d015a77a61ba8"
+  },
+  "protocol": {
+    "warmupPerCondition": 0,
+    "warmupDiscarded": false,
+    "interleaved": true,
+    "cooldownSeconds": 120,
+    "startedAt": "2026-11-11T09:10:55.756Z",
+    "finishedAt": "2026-11-11T09:13:18.096Z",
+    "powerBefore": {
+      "source": "AC",
+      "lowPowerMode": false,
+      "loadAverage": [
+        2.95,
+        3.49,
+        3.46
+      ]
+    },
+    "powerAfter": {
+      "source": "AC",
+      "lowPowerMode": false,
+      "loadAverage": [
+        3.61,
+        3.39,
+        3.41
+      ]
+    },
+    "heapLimitBytes": 4345298944,
+    "series": "full-ts6-default-heap"
+  },
+  "conditions": [
+    {
+      "key": "full-ts6",
+      "label": "Full suite with type tests, TypeScript 6.0.3",
+      "compiler": "TypeScript 6.0.3",
+      "scope": "full",
+      "flags": [],
+      "env": {},
+      "warmupDiscarded": [],
+      "status": "out-of-memory",
+      "failure": {
+        "ok": false,
+        "started": "2026-11-11T09:12:55.761Z",
+        "status": "out-of-memory",
+        "cause": "v8-heap-limit",
+        "exitCode": null,
+        "signal": "SIGABRT",
+        "maxRssMB": 4263,
+        "errorLines": [
+          "FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory",
+          " 1: 0x104f8bf14 node::OOMErrorHandler(char const*, v8::OOMDetails const&) [/Users/martinferret/.nvm/versions/node/v22.23.3/bin/node]",
+          " 2: 0x1051680a0 v8::internal::V8::FatalProcessOutOfMemory(v8::internal::Isolate*, char const*, v8::OOMDetails const&) [/Users/martinferret/.nvm/versions/node/v22.23.3/bin/node]",
+          " 3: 0x1053776b4 v8::internal::Heap::stack() [/Users/martinferret/.nvm/versions/node/v22.23.3/bin/node]",
+          " 4: 0x105375a54 v8::internal::Heap::CollectGarbage(v8::internal::AllocationSpace, v8::internal::GarbageCollectionReason, v8::GCCallbackFlags) [/Users/martinferret/.nvm/versions/node/v22.23.3/bin/node]",
+          " 5: 0x10536a048 v8::internal::HeapAllocator::AllocateRawWithLightRetrySlowPath(int, v8::internal::AllocationType, v8::internal::AllocationOrigin, v8::internal::AllocationAlignment) [/Users/martinferret/.nvm/versions/node/v22.23.3/bin/node]",
+          " 6: 0x10536a880 v8::internal::HeapAllocator::AllocateRawWithRetryOrFailSlowPath(int, v8::internal::AllocationType, v8::internal::AllocationOrigin, v8::internal::AllocationAlignment) [/Users/martinferret/.nvm/versions/node/v22.23.3/bin/node]",
+          "                   0  average shared memory size",
+          "                   0  signals received",
+          "          4569680592  peak memory footprint"
+        ]
+      },
+      "runs": []
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+
+=== 2026-11-11T09:06:14Z CONDITIONS=src-ts6,src-ts7,src-ts7-single RUNS=7 SERIES=sources
+  idle 120 s before the series
+  Sources, TypeScript 6.0.3: warm-up 1/1... check 1.65s, rss 555 MB
+  Sources, TypeScript 7.0.2: warm-up 1/1... check 0.47s, rss 375 MB
+  Sources, TypeScript 7.0.2 single-threaded: warm-up 1/1... check 0.624s, rss 334 MB
+  Sources, TypeScript 6.0.3: run 1/7... check 1.66s, rss 557 MB
+  Sources, TypeScript 7.0.2: run 1/7... check 0.488s, rss 377 MB
+  Sources, TypeScript 7.0.2 single-threaded: run 1/7... check 0.636s, rss 354 MB
+  Sources, TypeScript 6.0.3: run 2/7... check 1.7s, rss 557 MB
+  Sources, TypeScript 7.0.2: run 2/7... check 0.482s, rss 350 MB
+  Sources, TypeScript 7.0.2 single-threaded: run 2/7... check 0.631s, rss 336 MB
+  Sources, TypeScript 6.0.3: run 3/7... check 1.67s, rss 558 MB
+  Sources, TypeScript 7.0.2: run 3/7... check 0.492s, rss 365 MB
+  Sources, TypeScript 7.0.2 single-threaded: run 3/7... check 0.623s, rss 354 MB
+  Sources, TypeScript 6.0.3: run 4/7... check 1.68s, rss 557 MB
+  Sources, TypeScript 7.0.2: run 4/7... check 0.484s, rss 374 MB
+  Sources, TypeScript 7.0.2 single-threaded: run 4/7... check 0.636s, rss 334 MB
+  Sources, TypeScript 6.0.3: run 5/7... check 1.67s, rss 558 MB
+  Sources, TypeScript 7.0.2: run 5/7... check 0.481s, rss 368 MB
+  Sources, TypeScript 7.0.2 single-threaded: run 5/7... check 0.636s, rss 338 MB
+  Sources, TypeScript 6.0.3: run 6/7... check 1.67s, rss 558 MB
+  Sources, TypeScript 7.0.2: run 6/7... check 0.488s, rss 352 MB
+  Sources, TypeScript 7.0.2 single-threaded: run 6/7... check 0.638s, rss 336 MB
+  Sources, TypeScript 6.0.3: run 7/7... check 1.68s, rss 557 MB
+  Sources, TypeScript 7.0.2: run 7/7... check 0.473s, rss 367 MB
+  Sources, TypeScript 7.0.2 single-threaded: run 7/7... check 0.639s, rss 342 MB
+
+Saved experiments/002-ts6-vs-ts7-type-fest/results/2026-11-11-darwin-12cores-sources.json
+
+=== 2026-11-11T09:08:40Z CONDITIONS=src-ts7-c1,src-ts7-c2,src-ts7-c4,src-ts7-c8 RUNS=5 SERIES=checkers
+  idle 120 s before the series
+  Sources, TypeScript 7.0.2 with 1 checker: warm-up 1/1... check 0.619s, rss 358 MB
+  Sources, TypeScript 7.0.2 with 2 checkers: warm-up 1/1... check 0.519s, rss 355 MB
+  Sources, TypeScript 7.0.2 with 4 checkers: warm-up 1/1... check 0.475s, rss 344 MB
+  Sources, TypeScript 7.0.2 with 8 checkers: warm-up 1/1... check 0.362s, rss 384 MB
+  Sources, TypeScript 7.0.2 with 1 checker: run 1/5... check 0.623s, rss 361 MB
+  Sources, TypeScript 7.0.2 with 2 checkers: run 1/5... check 0.523s, rss 375 MB
+  Sources, TypeScript 7.0.2 with 4 checkers: run 1/5... check 0.464s, rss 379 MB
+  Sources, TypeScript 7.0.2 with 8 checkers: run 1/5... check 0.377s, rss 387 MB
+  Sources, TypeScript 7.0.2 with 1 checker: run 2/5... check 0.646s, rss 354 MB
+  Sources, TypeScript 7.0.2 with 2 checkers: run 2/5... check 0.518s, rss 357 MB
+  Sources, TypeScript 7.0.2 with 4 checkers: run 2/5... check 0.479s, rss 355 MB
+  Sources, TypeScript 7.0.2 with 8 checkers: run 2/5... check 0.365s, rss 359 MB
+  Sources, TypeScript 7.0.2 with 1 checker: run 3/5... check 0.668s, rss 355 MB
+  Sources, TypeScript 7.0.2 with 2 checkers: run 3/5... check 0.511s, rss 372 MB
+  Sources, TypeScript 7.0.2 with 4 checkers: run 3/5... check 0.493s, rss 376 MB
+  Sources, TypeScript 7.0.2 with 8 checkers: run 3/5... check 0.387s, rss 367 MB
+  Sources, TypeScript 7.0.2 with 1 checker: run 4/5... check 0.632s, rss 361 MB
+  Sources, TypeScript 7.0.2 with 2 checkers: run 4/5... check 0.529s, rss 347 MB
+  Sources, TypeScript 7.0.2 with 4 checkers: run 4/5... check 0.475s, rss 382 MB
+  Sources, TypeScript 7.0.2 with 8 checkers: run 4/5... check 0.379s, rss 366 MB
+  Sources, TypeScript 7.0.2 with 1 checker: run 5/5... check 0.642s, rss 355 MB
+  Sources, TypeScript 7.0.2 with 2 checkers: run 5/5... check 0.508s, rss 369 MB
+  Sources, TypeScript 7.0.2 with 4 checkers: run 5/5... check 0.469s, rss 374 MB
+  Sources, TypeScript 7.0.2 with 8 checkers: run 5/5... check 0.372s, rss 368 MB
+
+Saved experiments/002-ts6-vs-ts7-type-fest/results/2026-11-11-darwin-12cores-checkers.json
+
+=== 2026-11-11T09:10:55Z CONDITIONS=full-ts6 RUNS=1 WARMUP=0 SERIES=full-ts6-default-heap
+  idle 120 s before the series
+  Full suite with type tests, TypeScript 6.0.3: run 1/1... FAILED (out-of-memory, exit null, SIGABRT)
+
+Saved experiments/002-ts6-vs-ts7-type-fest/results/2026-11-11-darwin-12cores-full-ts6-default-heap.json
+
+=== 2026-11-11T09:13:18Z CONDITIONS=full-ts7,full-ts6-heap16g,full-ts7-single RUNS=3 SERIES=full
+  idle 120 s before the series
+  Full suite with type tests, TypeScript 7.0.2: warm-up 1/1... check 13.548s, rss 12582 MB
+  Full suite with type tests, TypeScript 6.0.3, 16 GB heap: warm-up 1/1... check 69.43s, rss 10731 MB
+  Full suite with type tests, TypeScript 7.0.2 single-threaded: warm-up 1/1... check 22.177s, rss 9578 MB
+  Full suite with type tests, TypeScript 7.0.2: run 1/3... check 14.117s, rss 11972 MB
+  Full suite with type tests, TypeScript 6.0.3, 16 GB heap: run 1/3... check 73.76s, rss 10318 MB
+  Full suite with type tests, TypeScript 7.0.2 single-threaded: run 1/3... check 24.893s, rss 9953 MB
+  Full suite with type tests, TypeScript 7.0.2: run 2/3... check 15.815s, rss 11904 MB
+  Full suite with type tests, TypeScript 6.0.3, 16 GB heap: run 2/3... check 77.77s, rss 10870 MB
+  Full suite with type tests, TypeScript 7.0.2 single-threaded: run 2/3... check 21.806s, rss 10135 MB
+  Full suite with type tests, TypeScript 7.0.2: run 3/3... check 12.981s, rss 12549 MB
+  Full suite with type tests, TypeScript 6.0.3, 16 GB heap: run 3/3... check 82.64s, rss 10077 MB
+  Full suite with type tests, TypeScript 7.0.2 single-threaded: run 3/3... check 22.072s, rss 9108 MB
+
+Saved experiments/002-ts6-vs-ts7-type-fest/results/2026-11-11-darwin-12cores-full.json
+
+=== 2026-11-11T09:23:10Z ALL DONE
+
+=== 2026-11-11T09:23:37Z S5 full-extra
+  idle 120 s before the series
+  Full suite with type tests, TypeScript 7.0.2: warm-up 1/1... check 14.602s, rss 11936 MB
+  Full suite with type tests, TypeScript 6.0.3, 16 GB heap: warm-up 1/1... check 71.88s, rss 10593 MB
+  Full suite with type tests, TypeScript 7.0.2 single-threaded: warm-up 1/1... check 23.343s, rss 9294 MB
+  Full suite with type tests, TypeScript 7.0.2: run 1/5... check 14.105s, rss 11860 MB
+  Full suite with type tests, TypeScript 6.0.3, 16 GB heap: run 1/5... check 71.73s, rss 10547 MB
+  Full suite with type tests, TypeScript 7.0.2 single-threaded: run 1/5... check 22.202s, rss 10104 MB
+  Full suite with type tests, TypeScript 7.0.2: run 2/5... check 13.494s, rss 11713 MB
+  Full suite with type tests, TypeScript 6.0.3, 16 GB heap: run 2/5... check 77.48s, rss 10684 MB
+  Full suite with type tests, TypeScript 7.0.2 single-threaded: run 2/5... check 24.336s, rss 9162 MB
+  Full suite with type tests, TypeScript 7.0.2: run 3/5... check 15.536s, rss 11518 MB
+  Full suite with type tests, TypeScript 6.0.3, 16 GB heap: run 3/5... check 75.35s, rss 10085 MB
+  Full suite with type tests, TypeScript 7.0.2 single-threaded: run 3/5... check 23.839s, rss 8998 MB
+  Full suite with type tests, TypeScript 7.0.2: run 4/5... check 13.961s, rss 11842 MB
+  Full suite with type tests, TypeScript 6.0.3, 16 GB heap: run 4/5... check 69.88s, rss 11054 MB
+  Full suite with type tests, TypeScript 7.0.2 single-threaded: run 4/5... check 21.641s, rss 10079 MB
+  Full suite with type tests, TypeScript 7.0.2: run 5/5... check 14.09s, rss 11912 MB
+  Full suite with type tests, TypeScript 6.0.3, 16 GB heap: run 5/5... check 72.4s, rss 10840 MB
+  Full suite with type tests, TypeScript 7.0.2 single-threaded: run 5/5... check 24.087s, rss 9746 MB
+
+Saved experiments/002-ts6-vs-ts7-type-fest/results/2026-11-11-darwin-12cores-full-extra.json

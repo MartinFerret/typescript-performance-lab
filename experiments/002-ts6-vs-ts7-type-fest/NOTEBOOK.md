@@ -80,3 +80,27 @@ Martin's decision: machine on AC power, other applications stay open (WebStorm, 
 | S4 full suite | `CONDITIONS=full-ts7,full-ts6-heap16g,full-ts7-single RUNS=3 SERIES=full` | Steps 5.2 and 5.4, plus `full-ts7-single` to investigate anomaly A1 (counters unstable across runs with parallel checking). |
 
 All with the prefix `REQUIRE_AC=1 INTERLEAVE=1 WARMUP=1 COOLDOWN=120 node experiments/002-ts6-vs-ts7-type-fest/run.mjs` unless overridden above. Full log: `experiments/002-ts6-vs-ts7-type-fest/results/2026-11-10-series.log`.
+
+## 2026-11-11T09:06Z, launch
+- 2026-11-10T19:38Z to 2026-11-11T09:05Z: the first launch waited for AC power the whole time (`REQUIRE_AC=1`) and never measured anything. Its log, `results/2026-11-10-series.log`, contains only "Waiting for AC power...". Stopped.
+- Martin asked to measure even on battery. The `REQUIRE_AC` condition is removed from the series; every series still records the power source, Low Power Mode and load average before and after it, in its results file (`protocol.powerBefore` / `powerAfter`).
+- State at launch: `pmset` reports AC Power (charging, 55%), Low Power Mode off, load average 5.65 / 4.14 / 3.59 (just after two site builds). Same applications open as recorded on 2026-11-10. Each series idles 120 s first.
+- Log: `results/2026-11-11-series.log`.
+
+## 2026-11-11T09:23Z, first results (all four series done, AC power throughout, Low Power Mode off)
+- S1 sources: CV 0.8% (TS 6), 1.3% (TS 7), 0.9% (TS 7 single-threaded). Below 5%, no extra runs. Counters identical across runs.
+- S2 checkers: CV 1.7% to 2.6%. Counters identical across runs.
+- S3 TS 6 default heap: failed with `FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory`, SIGABRT, peak RSS 4,263 MB. Heap limit 4,345,298,944 bytes (Node.js v22.23.3 default on this machine).
+- S4 full suite: CV 10.0% (TS 7), 5.7% (TS 6, 16 GB heap), 7.5% (TS 7 single-threaded). Above 5%.
+- Investigation of the variance: load average rose from 3.61 to 4.94 during S4 (WebStorm, Next.js dev server, VM still open). The runs are interleaved, so the drift affected all three conditions; no single outlier run. Decision, per the variance rule: 5 more interleaved runs of the three full-suite conditions (series S5, with a discarded warm-up), then pool S4 and S5.
+- Anomaly A1, explained: with parallel checking (TS 7 default), Types and Instantiations change from run to run (Types 15,320,708 / 15,320,762 / 15,320,717). With `--singleThreaded` they are identical across runs (Types 8,535,794). So TS 7's counters are not deterministic with several checkers, and are much higher than single-threaded on the same program: under parallel checking the counters are not a stable measure of work. Timings are not affected by this.
+- The 2026-11-09 M3 Pro session (3 runs, no warm-up, not interleaved) is superseded by these protocol series for the M3 Pro. The file is kept in `results/`; `analyze.mjs` uses protocol sessions when a machine has any. Its TS 6 sources spread (1.98 to 3.26 s) is consistent with a cold first run: with a discarded warm-up the TS 6 spread is now 1.66 to 1.70 s.
+
+## 2026-11-11T09:25Z, S5
+`CONDITIONS=full-ts7,full-ts6-heap16g,full-ts7-single RUNS=5 SERIES=full-extra INTERLEAVE=1 WARMUP=1 COOLDOWN=120`
+
+## 2026-11-11T09:40Z, S5 done, final pooling
+- S5 (`SERIES=full-extra`, 5 runs + 1 discarded warm-up per condition, interleaved). AC power, Low Power Mode off, load average 3.49 before, 3.75 after.
+- Pooled S4 + S5 (8 runs each): TS 7 full CV 6.7%, TS 6 16 GB heap 5.5%, TS 7 single-threaded 5.6%. Still above 5% after the extra runs: data kept, instability stated in the limits (token `full.cv.max`).
+- Correction to anomaly A1 (entry of 09:23Z): with 8 runs, `--singleThreaded` also shows varying counters on the full suite (Types 8,535,794 and 8,535,872; Instantiations 34,156,859 and 34,156,989). So the variation is not caused by parallel checking alone. With parallel checking it is larger (6 distinct Types values in 8 runs). On the sources, every TS 7 condition has identical counters. The limits note, README and METHOD.md were corrected.
+- Final numbers come from `node experiments/002-ts6-vs-ts7-type-fest/analyze.mjs`; the page text is generated from them by `tools/build-index.mjs`.

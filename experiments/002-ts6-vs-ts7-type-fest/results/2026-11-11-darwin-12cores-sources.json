@@ -1,0 +1,426 @@
+{
+  "date": "2026-11-11T09:08:40.925Z",
+  "environment": {
+    "cpu": "Apple M3 Pro",
+    "cores": 12,
+    "memoryGB": 36,
+    "platform": "Darwin 25.2.0",
+    "node": "v22.23.3"
+  },
+  "runsPerCondition": 7,
+  "target": {
+    "name": "type-fest",
+    "repository": "https://github.com/sindresorhus/type-fest",
+    "commit": "2fbae25f05b697c0011d0e2f931d015a77a61ba8"
+  },
+  "protocol": {
+    "warmupPerCondition": 1,
+    "warmupDiscarded": true,
+    "interleaved": true,
+    "cooldownSeconds": 120,
+    "startedAt": "2026-11-11T09:06:14.287Z",
+    "finishedAt": "2026-11-11T09:08:40.909Z",
+    "powerBefore": {
+      "source": "AC",
+      "lowPowerMode": false,
+      "loadAverage": [
+        5,
+        4.05,
+        3.56
+      ]
+    },
+    "powerAfter": {
+      "source": "AC",
+      "lowPowerMode": false,
+      "loadAverage": [
+        4.18,
+        4.09,
+        3.65
+      ]
+    },
+    "heapLimitBytes": 4345298944,
+    "series": "sources"
+  },
+  "conditions": [
+    {
+      "key": "src-ts6",
+      "label": "Sources, TypeScript 6.0.3",
+      "compiler": "TypeScript 6.0.3",
+      "scope": "sources",
+      "flags": [],
+      "env": {},
+      "warmupDiscarded": [
+        {
+          "files": 338,
+          "types": 234740,
+          "instantiations": 707312,
+          "memoryUsedKB": 457402,
+          "parseTime": 0.1,
+          "bindTime": 0.05,
+          "checkTime": 1.65,
+          "totalTime": 1.88,
+          "maxRssMB": 555,
+          "started": "2026-11-11T09:08:14.292Z"
+        }
+      ],
+      "status": "ok",
+      "runs": [
+        {
+          "files": 338,
+          "types": 234740,
+          "instantiations": 707312,
+          "memoryUsedKB": 450919,
+          "parseTime": 0.1,
+          "bindTime": 0.05,
+          "checkTime": 1.66,
+          "totalTime": 1.86,
+          "maxRssMB": 557,
+          "started": "2026-11-11T09:08:17.686Z"
+        },
+        {
+          "files": 338,
+          "types": 234740,
+          "instantiations": 707312,
+          "memoryUsedKB": 450471,
+          "parseTime": 0.11,
+          "bindTime": 0.05,
+          "checkTime": 1.7,
+          "totalTime": 1.9,
+          "maxRssMB": 557,
+          "started": "2026-11-11T09:08:20.993Z"
+        },
+        {
+          "files": 338,
+          "types": 234740,
+          "instantiations": 707312,
+          "memoryUsedKB": 450880,
+          "parseTime": 0.1,
+          "bindTime": 0.05,
+          "checkTime": 1.67,
+          "totalTime": 1.87,
+          "maxRssMB": 558,
+          "started": "2026-11-11T09:08:24.331Z"
+        },
+        {
+          "files": 338,
+          "types": 234740,
+          "instantiations": 707312,
+          "memoryUsedKB": 450435,
+          "parseTime": 0.11,
+          "bindTime": 0.05,
+          "checkTime": 1.68,
+          "totalTime": 1.87,
+          "maxRssMB": 557,
+          "started": "2026-11-11T09:08:27.640Z"
+        },
+        {
+          "files": 338,
+          "types": 234740,
+          "instantiations": 707312,
+          "memoryUsedKB": 450858,
+          "parseTime": 0.1,
+          "bindTime": 0.05,
+          "checkTime": 1.67,
+          "totalTime": 1.87,
+          "maxRssMB": 558,
+          "started": "2026-11-11T09:08:30.956Z"
+        },
+        {
+          "files": 338,
+          "types": 234740,
+          "instantiations": 707312,
+          "memoryUsedKB": 451248,
+          "parseTime": 0.1,
+          "bindTime": 0.05,
+          "checkTime": 1.67,
+          "totalTime": 1.87,
+          "maxRssMB": 558,
+          "started": "2026-11-11T09:08:34.267Z"
+        },
+        {
+          "files": 338,
+          "types": 234740,
+          "instantiations": 707312,
+          "memoryUsedKB": 450951,
+          "parseTime": 0.1,
+          "bindTime": 0.05,
+          "checkTime": 1.68,
+          "totalTime": 1.88,
+          "maxRssMB": 557,
+          "started": "2026-11-11T09:08:37.594Z"
+        }
+      ],
+      "median": {
+        "files": 338,
+        "types": 234740,
+        "instantiations": 707312,
+        "memoryUsedKB": 450880,
+        "parseTime": 0.1,
+        "bindTime": 0.05,
+        "checkTime": 1.67,
+        "totalTime": 1.87,
+        "maxRssMB": 557
+      }
+    },
+    {
+      "key": "src-ts7",
+      "label": "Sources, TypeScript 7.0.2",
+      "compiler": "TypeScript 7.0.2",
+      "scope": "sources",
+      "flags": [],
+      "env": {},
+      "warmupDiscarded": [
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 276225,
+          "instantiations": 839577,
+          "memoryUsedKB": 270824,
+          "parseTime": 0.022,
+          "bindTime": 0.005,
+          "checkTime": 0.47,
+          "totalTime": 0.507,
+          "maxRssMB": 375,
+          "started": "2026-11-11T09:08:16.308Z"
+        }
+      ],
+      "status": "ok",
+      "runs": [
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 276225,
+          "instantiations": 839577,
+          "memoryUsedKB": 270975,
+          "parseTime": 0.019,
+          "bindTime": 0.005,
+          "checkTime": 0.488,
+          "totalTime": 0.514,
+          "maxRssMB": 377,
+          "started": "2026-11-11T09:08:19.642Z"
+        },
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 276225,
+          "instantiations": 839577,
+          "memoryUsedKB": 270936,
+          "parseTime": 0.021,
+          "bindTime": 0.004,
+          "checkTime": 0.482,
+          "totalTime": 0.509,
+          "maxRssMB": 350,
+          "started": "2026-11-11T09:08:22.993Z"
+        },
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 276225,
+          "instantiations": 839577,
+          "memoryUsedKB": 270861,
+          "parseTime": 0.02,
+          "bindTime": 0.005,
+          "checkTime": 0.492,
+          "totalTime": 0.519,
+          "maxRssMB": 365,
+          "started": "2026-11-11T09:08:26.299Z"
+        },
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 276225,
+          "instantiations": 839577,
+          "memoryUsedKB": 270928,
+          "parseTime": 0.019,
+          "bindTime": 0.006,
+          "checkTime": 0.484,
+          "totalTime": 0.51,
+          "maxRssMB": 374,
+          "started": "2026-11-11T09:08:29.612Z"
+        },
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 276225,
+          "instantiations": 839577,
+          "memoryUsedKB": 270898,
+          "parseTime": 0.019,
+          "bindTime": 0.005,
+          "checkTime": 0.481,
+          "totalTime": 0.508,
+          "maxRssMB": 368,
+          "started": "2026-11-11T09:08:32.922Z"
+        },
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 276225,
+          "instantiations": 839577,
+          "memoryUsedKB": 270885,
+          "parseTime": 0.021,
+          "bindTime": 0.004,
+          "checkTime": 0.488,
+          "totalTime": 0.515,
+          "maxRssMB": 352,
+          "started": "2026-11-11T09:08:36.233Z"
+        },
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 276225,
+          "instantiations": 839577,
+          "memoryUsedKB": 270897,
+          "parseTime": 0.02,
+          "bindTime": 0.005,
+          "checkTime": 0.473,
+          "totalTime": 0.5,
+          "maxRssMB": 367,
+          "started": "2026-11-11T09:08:39.568Z"
+        }
+      ],
+      "median": {
+        "files": 338,
+        "lines": 82374,
+        "types": 276225,
+        "instantiations": 839577,
+        "memoryUsedKB": 270898,
+        "parseTime": 0.02,
+        "bindTime": 0.005,
+        "checkTime": 0.484,
+        "totalTime": 0.51,
+        "maxRssMB": 367
+      }
+    },
+    {
+      "key": "src-ts7-single",
+      "label": "Sources, TypeScript 7.0.2 single-threaded",
+      "compiler": "TypeScript 7.0.2",
+      "scope": "sources",
+      "flags": [
+        "--singleThreaded"
+      ],
+      "env": {},
+      "warmupDiscarded": [
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 259464,
+          "instantiations": 815224,
+          "memoryUsedKB": 255181,
+          "parseTime": 0.031,
+          "bindTime": 0.007,
+          "checkTime": 0.624,
+          "totalTime": 0.663,
+          "maxRssMB": 334,
+          "started": "2026-11-11T09:08:16.945Z"
+        }
+      ],
+      "status": "ok",
+      "runs": [
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 259464,
+          "instantiations": 815224,
+          "memoryUsedKB": 255246,
+          "parseTime": 0.031,
+          "bindTime": 0.006,
+          "checkTime": 0.636,
+          "totalTime": 0.675,
+          "maxRssMB": 354,
+          "started": "2026-11-11T09:08:20.238Z"
+        },
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 259464,
+          "instantiations": 815224,
+          "memoryUsedKB": 255290,
+          "parseTime": 0.031,
+          "bindTime": 0.006,
+          "checkTime": 0.631,
+          "totalTime": 0.67,
+          "maxRssMB": 336,
+          "started": "2026-11-11T09:08:23.582Z"
+        },
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 259464,
+          "instantiations": 815224,
+          "memoryUsedKB": 255403,
+          "parseTime": 0.031,
+          "bindTime": 0.006,
+          "checkTime": 0.623,
+          "totalTime": 0.662,
+          "maxRssMB": 354,
+          "started": "2026-11-11T09:08:26.898Z"
+        },
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 259464,
+          "instantiations": 815224,
+          "memoryUsedKB": 255229,
+          "parseTime": 0.031,
+          "bindTime": 0.006,
+          "checkTime": 0.636,
+          "totalTime": 0.674,
+          "maxRssMB": 334,
+          "started": "2026-11-11T09:08:30.204Z"
+        },
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 259464,
+          "instantiations": 815224,
+          "memoryUsedKB": 255299,
+          "parseTime": 0.031,
+          "bindTime": 0.007,
+          "checkTime": 0.636,
+          "totalTime": 0.675,
+          "maxRssMB": 338,
+          "started": "2026-11-11T09:08:33.511Z"
+        },
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 259464,
+          "instantiations": 815224,
+          "memoryUsedKB": 255319,
+          "parseTime": 0.031,
+          "bindTime": 0.007,
+          "checkTime": 0.638,
+          "totalTime": 0.678,
+          "maxRssMB": 336,
+          "started": "2026-11-11T09:08:36.829Z"
+        },
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 259464,
+          "instantiations": 815224,
+          "memoryUsedKB": 255266,
+          "parseTime": 0.032,
+          "bindTime": 0.006,
+          "checkTime": 0.639,
+          "totalTime": 0.678,
+          "maxRssMB": 342,
+          "started": "2026-11-11T09:08:40.151Z"
+        }
+      ],
+      "median": {
+        "files": 338,
+        "lines": 82374,
+        "types": 259464,
+        "instantiations": 815224,
+        "memoryUsedKB": 255290,
+        "parseTime": 0.031,
+        "bindTime": 0.006,
+        "checkTime": 0.636,
+        "totalTime": 0.675,
+        "maxRssMB": 338
+      }
+    }
+  ]
+}
