@@ -1,0 +1,6 @@
+node_modules
+experiments/*/work
+*.log
+trace*/
+.DS_Store
+.idea/

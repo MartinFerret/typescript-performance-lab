@@ -1,0 +1,196 @@
+{
+  "date": "2026-11-03T21:58:34.893Z",
+  "environment": {
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.30GHz",
+    "cores": 1,
+    "memoryGB": 4,
+    "platform": "Linux 6.18.44-fc-v230",
+    "node": "v22.22.2"
+  },
+  "runsPerCondition": 3,
+  "target": {
+    "name": "type-fest",
+    "repository": "https://github.com/sindresorhus/type-fest",
+    "commit": "2fbae25f05b697c0011d0e2f931d015a77a61ba8"
+  },
+  "conditions": [
+    {
+      "key": "src-ts6",
+      "label": "Sources, TypeScript 6.0.3",
+      "compiler": "TypeScript 6.0.3",
+      "scope": "sources",
+      "flags": [],
+      "status": "ok",
+      "runs": [
+        {
+          "files": 338,
+          "types": 234740,
+          "instantiations": 707312,
+          "memoryUsedKB": 403742,
+          "parseTime": 0.55,
+          "bindTime": 0.25,
+          "checkTime": 6.92,
+          "totalTime": 7.86
+        },
+        {
+          "files": 338,
+          "types": 234740,
+          "instantiations": 707312,
+          "memoryUsedKB": 345021,
+          "parseTime": 0.56,
+          "bindTime": 0.22,
+          "checkTime": 6.53,
+          "totalTime": 7.43
+        },
+        {
+          "files": 338,
+          "types": 234740,
+          "instantiations": 707312,
+          "memoryUsedKB": 360994,
+          "parseTime": 0.61,
+          "bindTime": 0.22,
+          "checkTime": 6.68,
+          "totalTime": 7.67
+        }
+      ],
+      "median": {
+        "files": 338,
+        "types": 234740,
+        "instantiations": 707312,
+        "memoryUsedKB": 360994,
+        "parseTime": 0.56,
+        "bindTime": 0.22,
+        "checkTime": 6.68,
+        "totalTime": 7.67
+      }
+    },
+    {
+      "key": "src-ts7",
+      "label": "Sources, TypeScript 7.0.2",
+      "compiler": "TypeScript 7.0.2",
+      "scope": "sources",
+      "flags": [],
+      "status": "ok",
+      "runs": [
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 276225,
+          "instantiations": 839577,
+          "memoryUsedKB": 270455,
+          "parseTime": 0.077,
+          "bindTime": 0.02,
+          "checkTime": 1.704,
+          "totalTime": 1.806
+        },
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 276225,
+          "instantiations": 839577,
+          "memoryUsedKB": 270434,
+          "parseTime": 0.075,
+          "bindTime": 0.018,
+          "checkTime": 1.593,
+          "totalTime": 1.691
+        },
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 276225,
+          "instantiations": 839577,
+          "memoryUsedKB": 270569,
+          "parseTime": 0.078,
+          "bindTime": 0.017,
+          "checkTime": 1.612,
+          "totalTime": 1.712
+        }
+      ],
+      "median": {
+        "files": 338,
+        "lines": 82374,
+        "types": 276225,
+        "instantiations": 839577,
+        "memoryUsedKB": 270455,
+        "parseTime": 0.077,
+        "bindTime": 0.018,
+        "checkTime": 1.612,
+        "totalTime": 1.712
+      }
+    },
+    {
+      "key": "src-ts7-single",
+      "label": "Sources, TypeScript 7.0.2 single-threaded",
+      "compiler": "TypeScript 7.0.2",
+      "scope": "sources",
+      "flags": [
+        "--singleThreaded"
+      ],
+      "status": "ok",
+      "runs": [
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 259464,
+          "instantiations": 815224,
+          "memoryUsedKB": 254955,
+          "parseTime": 0.069,
+          "bindTime": 0.015,
+          "checkTime": 1.803,
+          "totalTime": 1.89
+        },
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 259464,
+          "instantiations": 815224,
+          "memoryUsedKB": 254969,
+          "parseTime": 0.063,
+          "bindTime": 0.023,
+          "checkTime": 1.674,
+          "totalTime": 1.763
+        },
+        {
+          "files": 338,
+          "lines": 82374,
+          "types": 259464,
+          "instantiations": 815224,
+          "memoryUsedKB": 254966,
+          "parseTime": 0.061,
+          "bindTime": 0.028,
+          "checkTime": 1.612,
+          "totalTime": 1.704
+        }
+      ],
+      "median": {
+        "files": 338,
+        "lines": 82374,
+        "types": 259464,
+        "instantiations": 815224,
+        "memoryUsedKB": 254966,
+        "parseTime": 0.063,
+        "bindTime": 0.023,
+        "checkTime": 1.674,
+        "totalTime": 1.763
+      }
+    },
+    {
+      "key": "full-ts6",
+      "label": "Full suite with type tests, TypeScript 6.0.3",
+      "compiler": "TypeScript 6.0.3",
+      "scope": "full",
+      "flags": [],
+      "status": "out-of-memory",
+      "runs": []
+    },
+    {
+      "key": "full-ts7",
+      "label": "Full suite with type tests, TypeScript 7.0.2",
+      "compiler": "TypeScript 7.0.2",
+      "scope": "full",
+      "flags": [],
+      "status": "out-of-memory",
+      "runs": []
+    }
+  ]
+}

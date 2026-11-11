@@ -1,0 +1,4 @@
+{
+  "extends": "./after/tsconfig.json",
+  "include": ["after/src", "safety.ts"]
+}

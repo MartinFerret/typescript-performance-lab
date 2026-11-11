@@ -1,0 +1,222 @@
+{
+  "date": "2026-11-03T21:55:43.555Z",
+  "environment": {
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.30GHz",
+    "cores": 1,
+    "memoryGB": 4,
+    "platform": "Linux 6.18.44-fc-v230",
+    "node": "v22.22.2"
+  },
+  "runsPerCondition": 3,
+  "safetyCheck": "passed",
+  "conditions": [
+    {
+      "key": "before-ts6",
+      "label": "before (TypeScript 6.0.3)",
+      "compiler": "TypeScript 6.0.3",
+      "scope": "before",
+      "flags": [],
+      "status": "ok",
+      "runs": [
+        {
+          "files": 65,
+          "types": 38336,
+          "instantiations": 173307,
+          "memoryUsedKB": 179634,
+          "parseTime": 0.68,
+          "bindTime": 0.27,
+          "checkTime": 3.59,
+          "totalTime": 4.58
+        },
+        {
+          "files": 65,
+          "types": 38336,
+          "instantiations": 173307,
+          "memoryUsedKB": 182359,
+          "parseTime": 0.68,
+          "bindTime": 0.26,
+          "checkTime": 3.55,
+          "totalTime": 4.53
+        },
+        {
+          "files": 65,
+          "types": 38336,
+          "instantiations": 173307,
+          "memoryUsedKB": 180672,
+          "parseTime": 0.62,
+          "bindTime": 0.26,
+          "checkTime": 3.49,
+          "totalTime": 4.41
+        }
+      ],
+      "median": {
+        "files": 65,
+        "types": 38336,
+        "instantiations": 173307,
+        "memoryUsedKB": 180672,
+        "parseTime": 0.68,
+        "bindTime": 0.26,
+        "checkTime": 3.55,
+        "totalTime": 4.53
+      }
+    },
+    {
+      "key": "after-ts6",
+      "label": "after (TypeScript 6.0.3)",
+      "compiler": "TypeScript 6.0.3",
+      "scope": "after",
+      "flags": [],
+      "status": "ok",
+      "runs": [
+        {
+          "files": 64,
+          "types": 33785,
+          "instantiations": 64166,
+          "memoryUsedKB": 116926,
+          "parseTime": 0.39,
+          "bindTime": 0.17,
+          "checkTime": 2.17,
+          "totalTime": 2.8
+        },
+        {
+          "files": 64,
+          "types": 33785,
+          "instantiations": 64166,
+          "memoryUsedKB": 128415,
+          "parseTime": 0.42,
+          "bindTime": 0.18,
+          "checkTime": 2.11,
+          "totalTime": 2.76
+        },
+        {
+          "files": 64,
+          "types": 33785,
+          "instantiations": 64166,
+          "memoryUsedKB": 116121,
+          "parseTime": 0.4,
+          "bindTime": 0.18,
+          "checkTime": 2.07,
+          "totalTime": 2.71
+        }
+      ],
+      "median": {
+        "files": 64,
+        "types": 33785,
+        "instantiations": 64166,
+        "memoryUsedKB": 116926,
+        "parseTime": 0.4,
+        "bindTime": 0.18,
+        "checkTime": 2.11,
+        "totalTime": 2.76
+      }
+    },
+    {
+      "key": "before-ts7",
+      "label": "before (TypeScript 7.0.2)",
+      "compiler": "TypeScript 7.0.2",
+      "scope": "before",
+      "flags": [],
+      "status": "ok",
+      "runs": [
+        {
+          "files": 65,
+          "lines": 65728,
+          "types": 55537,
+          "instantiations": 260791,
+          "memoryUsedKB": 90571,
+          "parseTime": 0.051,
+          "bindTime": 0.032,
+          "checkTime": 0.886,
+          "totalTime": 0.972
+        },
+        {
+          "files": 65,
+          "lines": 65728,
+          "types": 55537,
+          "instantiations": 260791,
+          "memoryUsedKB": 90592,
+          "parseTime": 0.052,
+          "bindTime": 0.022,
+          "checkTime": 0.932,
+          "totalTime": 1.011
+        },
+        {
+          "files": 65,
+          "lines": 65728,
+          "types": 55537,
+          "instantiations": 260791,
+          "memoryUsedKB": 90347,
+          "parseTime": 0.051,
+          "bindTime": 0.032,
+          "checkTime": 0.927,
+          "totalTime": 1.013
+        }
+      ],
+      "median": {
+        "files": 65,
+        "lines": 65728,
+        "types": 55537,
+        "instantiations": 260791,
+        "memoryUsedKB": 90571,
+        "parseTime": 0.051,
+        "bindTime": 0.032,
+        "checkTime": 0.927,
+        "totalTime": 1.011
+      }
+    },
+    {
+      "key": "after-ts7",
+      "label": "after (TypeScript 7.0.2)",
+      "compiler": "TypeScript 7.0.2",
+      "scope": "after",
+      "flags": [],
+      "status": "ok",
+      "runs": [
+        {
+          "files": 64,
+          "lines": 58225,
+          "types": 47724,
+          "instantiations": 142952,
+          "memoryUsedKB": 71770,
+          "parseTime": 0.039,
+          "bindTime": 0.019,
+          "checkTime": 0.326,
+          "totalTime": 0.386
+        },
+        {
+          "files": 64,
+          "lines": 58225,
+          "types": 47724,
+          "instantiations": 142952,
+          "memoryUsedKB": 71697,
+          "parseTime": 0.042,
+          "bindTime": 0.01,
+          "checkTime": 0.303,
+          "totalTime": 0.358
+        },
+        {
+          "files": 64,
+          "lines": 58225,
+          "types": 47724,
+          "instantiations": 142952,
+          "memoryUsedKB": 71770,
+          "parseTime": 0.039,
+          "bindTime": 0.017,
+          "checkTime": 0.344,
+          "totalTime": 0.402
+        }
+      ],
+      "median": {
+        "files": 64,
+        "lines": 58225,
+        "types": 47724,
+        "instantiations": 142952,
+        "memoryUsedKB": 71770,
+        "parseTime": 0.039,
+        "bindTime": 0.017,
+        "checkTime": 0.326,
+        "totalTime": 0.386
+      }
+    }
+  ]
+}

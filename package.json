@@ -1,0 +1,16 @@
+{
+  "name": "typescript-performance-lab",
+  "private": true,
+  "type": "module",
+  "description": "Measured, reproducible experiments on TypeScript type-checking performance.",
+  "scripts": {
+    "lab:001": "node experiments/001-typed-events/run.mjs",
+    "lab:002": "node experiments/002-ts6-vs-ts7-type-fest/run.mjs",
+    "build": "node tools/build-index.mjs",
+    "site": "node tools/build-index.mjs && node tools/serve.mjs"
+  },
+  "devDependencies": {
+    "typescript6": "npm:typescript@6.0.3",
+    "typescript7": "npm:typescript@7.0.2"
+  }
+}

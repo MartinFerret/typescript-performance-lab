@@ -1,0 +1,18 @@
+{
+  "id": "002",
+  "title": "TypeScript 6 vs 7 on type-fest",
+  "question": "How much faster does TypeScript 7 type-check a real, type-heavy library, and how much of the gain comes from parallel checking rather than the native compiler itself?",
+  "status": "open",
+  "verdict": "Open until measured on more machines. In the reference environment (1 core, 4 GB), TypeScript 7 checked the library sources about 3 times faster with lower memory, and the full suite with type tests ran out of memory with both compilers.",
+  "takeaway": "Measure TypeScript 7 on your own project and your own CI runners: the gain depends on cores and memory, not just on the compiler.",
+  "reproduce": "npm install && npm run lab:002",
+  "target": {
+    "name": "type-fest",
+    "repository": "https://github.com/sindresorhus/type-fest",
+    "commit": "2fbae25f05b697c0011d0e2f931d015a77a61ba8"
+  },
+  "notes": [
+    "Types and Instantiations differ between TypeScript 6 and 7 on identical code. The two compilers may not count the same way, so do not compare these counters across compilers without checking how each one counts."
+  ],
+  "conditions": ["src-ts6", "src-ts7", "src-ts7-single", "full-ts6", "full-ts7"]
+}
